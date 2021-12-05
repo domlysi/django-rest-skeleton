@@ -41,3 +41,5 @@ DATABASES = {
 }
 
 # EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+CORS_ALLOW_ALL_ORIGINS = True
