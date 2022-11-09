@@ -18,7 +18,7 @@ from os.path import basename
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # the name of the whole site
-SITE_NAME = basename(BASE_DIR)
+SITE_NAME = '{{ project_name }}'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
