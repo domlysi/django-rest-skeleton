@@ -1,0 +1,7 @@
+postgres-data
+.env
+docker-compose.yml
+docker
+.dockerignore
+media
+static
