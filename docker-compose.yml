@@ -24,7 +24,7 @@ services:
       - memcached
     ports:
       - "${PROD_HOST:-127.0.0.1}:${PROD_PORT}:8000"
-      - "127.0.0.1:${JUPYTER_PORT}:8800"
+      - "127.0.0.1:${JUPYTER_PORT:-8800}:8800"
     volumes:
       - ./media:/media/app/
       - ./docker/docker-entrypoint.sh:/app/docker/docker-entrypoint.sh

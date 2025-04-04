@@ -15,13 +15,19 @@ RUN set -ex \
     libpcre3 \
     mime-support \
     postgresql-client \
+    git \
+    locales \
+    gettext \
+    binutils \
+    libproj-dev \
+    gdal-bin \
     gcc \
     " \
     && seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{} \
     && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
     && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen  \
     && dpkg-reconfigure --frontend=noninteractive locales \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV LANG de_DE.UTF-8
 ENV LC_ALL de_DE.UTF-8
