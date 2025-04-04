@@ -71,25 +71,9 @@ CMD [ "python", "./manage.py", "runserver", "0.0.0.0:8000"]
 
 FROM base AS prod
 EXPOSE 8000
-# Base uWSGI configuration (you shouldn't need to change these):
-ENV UWSGI_HTTP=:8000 UWSGI_MASTER=1 UWSGI_HTTP_AUTO_CHUNKED=1 UWSGI_HTTP_KEEPALIVE=1 UWSGI_LAZY_APPS=1 UWSGI_WSGI_ENV_BEHAVIOR=holy
-
-# Number of uWSGI workers and threads per worker (customize as needed):
-ENV UWSGI_WORKERS=2 UWSGI_THREADS=4
-
-# uWSGI static file serving configuration (customize or comment out if not needed):
-ENV UWSGI_STATIC_MAP="/static/=/app/static/" UWSGI_STATIC_EXPIRES_URI="/static/.*\.[a-f0-9]{12,}\.(css|js|png|jpg|jpeg|gif|ico|woff|ttf|otf|svg|scss|map|txt) 315360000"
-
-# Deny invalid hosts before they get to Django (uncomment and change to your hostname(s)):
-# ENV UWSGI_ROUTE_HOST="^(?!localhost:8000$) break:400"
-
-# Change to a non-root user
-#USER ${APP_USER}:${APP_USER}
-# not working because of 'permission denied' error
-
 # Uncomment after creating your docker-entrypoint.sh
 ENTRYPOINT ["/app/docker/docker-entrypoint.sh"]
 
 # Start uWSGI
-CMD ["uwsgi", "--static-map", "/media/=/app/media/", "--show-config"]
+CMD ["uwsgi", "--ini", "/app/docker/uwsgi.ini"]
 
