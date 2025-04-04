@@ -1,6 +1,7 @@
-FROM python:3.9-slim
+FROM python:3.11.9-slim
 
 # Create a group and user to run our app
+
 #ARG APP_USER=appuser
 #RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USER}
 
@@ -10,20 +11,28 @@ FROM python:3.9-slim
 # We need to recreate the /usr/share/man/man{1..8} directories first because
 # they were clobbered by a parent image.
 RUN set -ex \
-    && RUN_DEPS=" \
+    && RUN_DEPS="\
     libpcre3 \
     mime-support \
     postgresql-client \
+    gcc \
     " \
     && seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{} \
     && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
+    && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen  \
+    && dpkg-reconfigure --frontend=noninteractive locales \
     && rm -rf /var/lib/apt/lists/*
 
+ENV LANG de_DE.UTF-8
+ENV LC_ALL de_DE.UTF-8a
+
+
 # Copy in your requirements file
-ADD requirements.txt /requirements.txt
+COPY requirements.txt /requirements.txt
 
 # IPython config
-ADD etc/ipython_config.py /root/.ipython/profile_default/ipython_config.py
+COPY etc/ipython_config.py /root/.ipython/profile_default/ipython_config.py
+COPY etc/campertrader.json /root/campertrader.json
 
 # OR, if you're using a directory for your requirements, copy everything (comment out the above and uncomment this if so):
 # ADD requirements /requirements
@@ -38,7 +47,6 @@ RUN set -ex \
     " \
     && apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS \
     && pip install --no-cache-dir -r /requirements.txt \
-    \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $BUILD_DEPS \
     && rm -rf /var/lib/apt/lists/*
 
@@ -48,7 +56,7 @@ RUN mkdir /app/ \
     && mkdir /app/static
 
 WORKDIR /app/
-ADD . /app/
+COPY . /app/
 
 # uWSGI will listen on this port
 EXPOSE 8000

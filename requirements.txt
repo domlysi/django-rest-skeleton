@@ -5,3 +5,6 @@ markdown
 django-filter
 django-cors-headers
 django-rest-auth
+psycopg2
+ipdb
+pymemcache

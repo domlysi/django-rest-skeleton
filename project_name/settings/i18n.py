@@ -9,8 +9,8 @@ from .common import BASE_DIR, MIDDLEWARE
 
 # ##### INTERNATIONALIZATION ##############################
 
-LANGUAGE_CODE = 'de'
-TIME_ZONE = 'Europe/Berlin'
+LANGUAGE_CODE = 'en'
+# TIME_ZONE = 'Europe/Berlin'
 
 # Internationalization
 USE_I18N = True
@@ -19,7 +19,7 @@ USE_I18N = True
 USE_L10N = True
 
 # enable timezone awareness by default
-USE_TZ = True
+# USE_TZ = True
 
 # This list of languages will be provided
 LANGUAGES = (
