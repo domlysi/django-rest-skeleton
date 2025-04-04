@@ -16,7 +16,7 @@ services:
       MEDIA_ROOT: "/media/app/"
     build:
       context: .
-      dockerfile: "${DOCKER_FILE}"
+      dockerfile: "docker/Dockerfile"
     links:
       - db:db
     depends_on:
@@ -34,6 +34,10 @@ services:
     networks:
       - mainnet
 
+  memcached:
+    image: memcached
+    networks:
+      - mainnet
 
   db:
     env_file:
