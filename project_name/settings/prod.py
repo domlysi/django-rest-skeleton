@@ -1,6 +1,6 @@
 from .common import *
 
-WSGI_APPLICATION = '{{project_name}}.wsgi.dev.application'
+WSGI_APPLICATION = '{{project_name}}.wsgi.prod.application'
 
 DEBUG = False
 
