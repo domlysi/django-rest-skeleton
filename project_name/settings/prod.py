@@ -23,17 +23,6 @@ except IOError:
         Exception('Please create a %s file with random characters \
         to generate your secret key!' % SECRET_FILE)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-        'NAME': os.environ.get('DB_DATABASE', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-    }
-}
-
 
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
