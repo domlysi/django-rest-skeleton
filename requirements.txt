@@ -4,7 +4,7 @@ djangorestframework
 markdown
 django-filter
 django-cors-headers
-django-rest-auth
+dj-rest-auth
 psycopg2
 ipdb
 pymemcache
