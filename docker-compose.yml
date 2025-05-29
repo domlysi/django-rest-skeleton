@@ -17,6 +17,7 @@ services:
     build:
       context: .
       dockerfile: "docker/Dockerfile"
+      target: "${BUILD_TARGET:-dev}"
     links:
       - db:db
     depends_on:
